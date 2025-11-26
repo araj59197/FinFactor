@@ -233,12 +233,15 @@ npm start
 
 <div align="center">
 
-🌐 **Frontend:** `http://localhost:3000`  
-⚙️ **Backend API:** `http://localhost:3001`
+🌐 **Frontend UI:** `http://localhost:3000`  
+📡 **Backend Health Check:** `http://localhost:3001/health`  
+🔍 **API Example:** `http://localhost:3001/api/aqi/search?city=London`
 
 <img src="https://user-images.githubusercontent.com/74038190/212257465-7ce8d493-cac5-494e-982a-5a9deb852c4b.gif" width="100">
 
 **✨ Your application is ready! ✨**
+
+> **Note:** The backend root (`http://localhost:3001`) shows API info, but actual endpoints are under `/api/aqi/`
 
 </div>
 
