@@ -61,19 +61,25 @@ A **production-ready full-stack application** that delivers instant air quality 
 
 ### 🔍 Core Functionality
 - **Instant City Search**: Search any city worldwide and get real-time AQI data
+- **24-Hour Forecast**: Predict air quality trends for the next 24 hours with hourly breakdown
+- **7-Day History**: View historical AQI data with trend analysis (increasing/decreasing/stable)
+- **Smart Alerts**: Get notifications when AQI exceeds 150 (Unhealthy or worse)
 - **Coordinate Search**: Find air quality by geographic location
 - **Rich Data Display**: AQI value, pollutant levels, weather conditions, and health implications
-- **Visual Analytics**: Color-coded AQI levels and interactive pollutant charts
+- **Visual Analytics**: Color-coded AQI levels with interactive Chart.js visualizations
 
 ### ⚡ Performance Optimizations
 - **Custom LRU Cache**: O(1) complexity for get/set operations
 - **TTL-based Expiration**: Automatic cache invalidation (30 min default)
 - **Intelligent Storage**: Maximum 100 entries with least-recently-used eviction
 - **Compression**: gzip compression for API responses
+- **Separate Caching**: Independent cache for current, forecast, and historical data
 
 ### 🎨 User Interface
+- **Tab Navigation**: Seamlessly switch between Current, Forecast (24h), and History (7d) views
+- **Interactive Charts**: Line charts for forecast, bar charts for historical data
+- **Loading States**: Smooth animations during data fetching with proper loading indicators
 - **Responsive Design**: Mobile, tablet, and desktop optimized
-- **Loading States**: Smooth animations during data fetching
 - **Error Messages**: Clear, actionable error feedback
 - **Example Cities**: Quick-access buttons for popular cities
 - **Health Guidance**: EPA-standard health recommendations
@@ -431,7 +437,90 @@ GET /aqi/coordinates?lat={latitude}&lng={longitude}
 curl "http://localhost:3001/api/aqi/coordinates?lat=51.5074&lng=-0.1278"
 ```
 
-#### 3. Cache Statistics
+#### 3. Get 24-Hour Forecast
+
+```http
+GET /aqi/forecast/{cityName}
+```
+
+**Parameters:**
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| city | string | Yes | City name for forecast |
+
+**Example:**
+```bash
+curl "http://localhost:3001/api/aqi/forecast/Mumbai"
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "city": "Mumbai",
+    "currentAQI": 156,
+    "forecast": [
+      {
+        "hour": "2025-11-26T10:00:00.000Z",
+        "hourLabel": "10:00",
+        "aqi": 156,
+        "level": "Unhealthy"
+      }
+      // ... 23 more hourly predictions
+    ],
+    "alerts": [
+      {
+        "time": "15:00",
+        "aqi": 165,
+        "level": "Unhealthy",
+        "message": "Air quality expected to be Unhealthy at 15:00"
+      }
+    ],
+    "hasAlerts": true
+  }
+}
+```
+
+#### 4. Get 7-Day Historical Data
+
+```http
+GET /aqi/historical/{cityName}
+```
+
+**Parameters:**
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| city | string | Yes | City name for historical data |
+
+**Example:**
+```bash
+curl "http://localhost:3001/api/aqi/historical/London"
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "city": "London",
+    "currentAQI": 42,
+    "history": [
+      {
+        "date": "2025-11-19",
+        "dateLabel": "Nov 19",
+        "aqi": 38,
+        "level": "Good"
+      }
+      // ... 7 more daily records
+    ],
+    "average": 45,
+    "trend": "decreasing"
+  }
+}
+```
+
+#### 5. Cache Statistics
 
 ```http
 GET /aqi/cache-stats
@@ -450,7 +539,7 @@ GET /aqi/cache-stats
 }
 ```
 
-#### 4. Health Check
+#### 6. Health Check
 
 ```http
 GET /health
@@ -614,10 +703,13 @@ Source:   External API
 
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+<img src="https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white" />
 <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
 
 - **React** (v18.2) - UI library
 - **Create React App** - Build tooling
+- **Chart.js** (v4.4) - Data visualization
+- **react-chartjs-2** (v5.2) - React wrapper for Chart.js
 - **Axios** (v1.6) - HTTP client
 - **CSS3** - Styling
 
