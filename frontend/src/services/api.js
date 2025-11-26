@@ -62,6 +62,16 @@ export const getCacheStats = async () => {
   return response.data;
 };
 
+export const getForecast = async (cityName) => {
+  const response = await apiClient.get(`/aqi/forecast/${encodeURIComponent(cityName)}`);
+  return response.data;
+};
+
+export const getHistoricalData = async (cityName) => {
+  const response = await apiClient.get(`/aqi/historical/${encodeURIComponent(cityName)}`);
+  return response.data;
+};
+
 export const checkHealth = async () => {
   const response = await apiClient.get('/health', {
     baseURL: process.env.REACT_APP_API_BASE_URL?.replace('/api', '') || 'http://localhost:3001',

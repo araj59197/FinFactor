@@ -9,6 +9,10 @@ router.get('/search', validateCitySearch, aqiController.searchCity);
 
 router.get('/coordinates', validateCoordinateSearch, aqiController.searchByCoordinates);
 
+router.get('/forecast/:city', aqiController.getForecast);
+
+router.get('/historical/:city', aqiController.getHistoricalData);
+
 router.get('/cache-stats', aqiController.getCacheStats);
 
 module.exports = router;

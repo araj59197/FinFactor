@@ -2,23 +2,50 @@ import React, { useState } from 'react';
 import SearchBar from './components/SearchBar';
 import AQICard from './components/AQICard';
 import Loading from './components/Loading';
-import { searchCityAQI } from './services/api';
+import ForecastChart from './components/ForecastChart';
+import HistoricalChart from './components/HistoricalChart';
+import { searchCityAQI, getForecast, getHistoricalData } from './services/api';
 import './App.css';
 
 function App() {
   const [airQualityInfo, setAirQualityInfo] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [activeTab, setActiveTab] = useState('current');
+  const [forecastData, setForecastData] = useState(null);
+  const [historicalData, setHistoricalData] = useState(null);
+  const [currentCity, setCurrentCity] = useState(null);
 
   const performSearch = async (location) => {
     setIsProcessing(true);
     setErrorMsg(null);
     setAirQualityInfo(null);
+    setForecastData(null);
+    setHistoricalData(null);
+    setCurrentCity(location);
 
     try {
       const result = await searchCityAQI(location);
       if (result.success) {
         setAirQualityInfo(result.data);
+        
+        try {
+          const forecast = await getForecast(location);
+          if (forecast.success) {
+            setForecastData(forecast.data);
+          }
+        } catch (err) {
+          console.error('Forecast error:', err);
+        }
+
+        try {
+          const historical = await getHistoricalData(location);
+          if (historical.success) {
+            setHistoricalData(historical.data);
+          }
+        } catch (err) {
+          console.error('Historical data error:', err);
+        }
       } else {
         setErrorMsg(result.message || 'Failed to fetch AQI data');
       }
@@ -62,7 +89,36 @@ function App() {
             </div>
           )}
 
-          {!isProcessing && !errorMsg && airQualityInfo && <AQICard data={airQualityInfo} />}
+          {!isProcessing && !errorMsg && airQualityInfo && (
+            <>
+              <div className="tabs-container">
+                <button
+                  className={`tab-button ${activeTab === 'current' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('current')}
+                >
+                  📊 Current
+                </button>
+                <button
+                  className={`tab-button ${activeTab === 'forecast' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('forecast')}
+                >
+                  🔮 Forecast (24h)
+                </button>
+                <button
+                  className={`tab-button ${activeTab === 'historical' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('historical')}
+                >
+                  📈 History (7d)
+                </button>
+              </div>
+
+              <div className="tab-content">
+                {activeTab === 'current' && <AQICard data={airQualityInfo} />}
+                {activeTab === 'forecast' && <ForecastChart forecastData={forecastData} />}
+                {activeTab === 'historical' && <HistoricalChart historicalData={historicalData} />}
+              </div>
+            </>
+          )}
 
           {!isProcessing && !errorMsg && !airQualityInfo && (
             <div className="welcome-container">

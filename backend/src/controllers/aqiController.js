@@ -145,6 +145,62 @@ async function searchByCoordinates(req, res, next) {
 /**
  * Get cache statistics
  */
+async function getForecast(req, res, next) {
+  try {
+    const { city } = req.params;
+
+    if (!city || city.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'City name is required',
+      });
+    }
+
+    logger.info(`Fetching forecast for: ${city}`);
+    const forecastData = await aqiService.getForecast(city);
+
+    res.json({
+      success: true,
+      data: forecastData,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error(`Forecast error for ${req.params.city}:`, error.message);
+    res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to fetch forecast data',
+    });
+  }
+}
+
+async function getHistoricalData(req, res, next) {
+  try {
+    const { city } = req.params;
+
+    if (!city || city.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'City name is required',
+      });
+    }
+
+    logger.info(`Fetching historical data for: ${city}`);
+    const historicalData = await aqiService.getHistoricalData(city);
+
+    res.json({
+      success: true,
+      data: historicalData,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error(`Historical data error for ${req.params.city}:`, error.message);
+    res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to fetch historical data',
+    });
+  }
+}
+
 function getCacheStats(req, res) {
   const stats = aqiService.getCacheStats();
   res.json({
@@ -157,5 +213,7 @@ function getCacheStats(req, res) {
 module.exports = {
   searchCity,
   searchByCoordinates,
+  getForecast,
+  getHistoricalData,
   getCacheStats,
 };
