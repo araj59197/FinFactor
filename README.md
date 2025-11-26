@@ -1,15 +1,29 @@
 <div align="center">
 
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Globe%20Showing%20Europe-Africa.png" alt="Globe" width="120" height="120" />
+
 # 🌍 Air Quality Index Search Engine
 
-**Real-time air quality monitoring for cities worldwide**
+<p align="center">
+  <strong>🌬️ Real-time air quality monitoring for cities worldwide 🌬️</strong>
+</p>
 
-[![Node.js](https://img.shields.io/badge/Node.js-16+-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-[![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react&logoColor=black)](https://reactjs.org/)
-[![Express](https://img.shields.io/badge/Express-4.18-000000?logo=express&logoColor=white)](https://expressjs.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+<p align="center">
+  <img src="https://img.shields.io/badge/Node.js-16+-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/React-18.2-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/Express-4.18-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
+  <img src="https://img.shields.io/badge/Axios-1.6-5A29E4?style=for-the-badge&logo=axios&logoColor=white" alt="Axios" />
+</p>
 
-[Features](#-features) • [Demo](#-demo) • [Installation](#-quick-start) • [Architecture](#-architecture) • [API](#-api-documentation)
+<p align="center">
+  <a href="#-features">Features</a> •
+  <a href="#-live-demo">Demo</a> •
+  <a href="#-quick-start">Installation</a> •
+  <a href="#-architecture">Architecture</a> •
+  <a href="#-api-documentation">API Docs</a>
+</p>
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%">
 
 </div>
 
@@ -73,16 +87,48 @@ A **production-ready full-stack application** that delivers instant air quality 
 
 ---
 
-## 🖼️ Demo
+## 🎬 Live Demo
 
-### Search Interface
-```
-🌍 Air Quality Index Search
-────────────────────────────────────────
-Search: [London                    ] 🔍
+<div align="center">
 
-Try: [London] [New York] [Tokyo] [Paris]
-```
+### 🔍 Search Interface
+
+<img src="https://raw.githubusercontent.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/main/default.gif" width="800" alt="Demo Preview">
+
+*Real-time air quality monitoring with instant search results*
+
+---
+
+### 📊 Features Preview
+
+<table>
+<tr>
+<td width="50%" align="center">
+<img src="https://user-images.githubusercontent.com/74038190/229223263-cf2e4b07-2615-4f87-9c38-e37600f8381a.gif" width="400">
+<br><strong>⚡ Lightning Fast Search</strong>
+<br><em>5ms response time with LRU cache</em>
+</td>
+<td width="50%" align="center">
+<img src="https://user-images.githubusercontent.com/74038190/235224431-e8c8c12e-6826-47f1-89fb-2ddad83b3abf.gif" width="400">
+<br><strong>📈 Rich Data Visualization</strong>
+<br><em>Interactive charts & real-time updates</em>
+</td>
+</tr>
+<tr>
+<td width="50%" align="center">
+<img src="https://user-images.githubusercontent.com/74038190/216122041-518ac897-8d92-4c6b-9b3f-ca01dcaf38ee.png" width="400">
+<br><strong>🌍 Global Coverage</strong>
+<br><em>10,000+ monitoring stations worldwide</em>
+</td>
+<td width="50%" align="center">
+<img src="https://user-images.githubusercontent.com/74038190/216122065-2f028bae-25d6-4a3c-bc9f-175394ed5011.png" width="400">
+<br><strong>📱 Responsive Design</strong>
+<br><em>Optimized for all devices</em>
+</td>
+</tr>
+</table>
+
+</div>
 
 ### Results Display
 ```
@@ -109,19 +155,43 @@ Try: [London] [New York] [Tokyo] [Paris]
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Node.js 16+ and npm
-- API token from [AQICN](https://aqicn.org/data-platform/token/)
+<div align="center">
+<img src="https://user-images.githubusercontent.com/74038190/212257454-16e3712e-945a-4ca2-b238-408ad0bf87e6.gif" width="100">
+</div>
 
-### Installation
+### 📋 Prerequisites
 
-1. **Clone the repository**
+<table>
+<tr>
+<td align="center" width="33%">
+<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" width="60"><br>
+<strong>Node.js 16+</strong><br>
+<a href="https://nodejs.org/">Download</a>
+</td>
+<td align="center" width="33%">
+<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/npm/npm-original-wordmark.svg" width="60"><br>
+<strong>npm</strong><br>
+<em>Included with Node.js</em>
+</td>
+<td align="center" width="33%">
+<img src="https://user-images.githubusercontent.com/74038190/235294012-0a55e343-37ad-4b0f-924f-c8431d9d2483.gif" width="60"><br>
+<strong>AQICN API Token</strong><br>
+<a href="https://aqicn.org/data-platform/token/">Get Token</a>
+</td>
+</tr>
+</table>
+
+---
+
+### 📦 Installation
+
+<img src="https://user-images.githubusercontent.com/74038190/212257472-08e52665-c503-4bd9-aa20-f5a4dae769b5.gif" width="20"> **Step 1: Clone the repository**
 ```bash
-git clone https://github.com/yourusername/Finfactor.git
-cd Finfactor
+git clone https://github.com/araj59197/FinFactor.git
+cd FinFactor
 ```
 
-2. **Backend Setup**
+<img src="https://user-images.githubusercontent.com/74038190/212257472-08e52665-c503-4bd9-aa20-f5a4dae769b5.gif" width="20"> **Step 2: Backend Setup**
 ```bash
 cd backend
 npm install
@@ -137,7 +207,7 @@ CACHE_MAX_SIZE=100
 NODE_ENV=development
 ```
 
-3. **Frontend Setup**
+<img src="https://user-images.githubusercontent.com/74038190/212257472-08e52665-c503-4bd9-aa20-f5a4dae769b5.gif" width="20"> **Step 3: Frontend Setup**
 ```bash
 cd ../frontend
 npm install
@@ -148,7 +218,8 @@ Create `.env` file:
 REACT_APP_API_BASE_URL=http://localhost:3001/api
 ```
 
-4. **Start Development Servers**
+<img src="https://user-images.githubusercontent.com/74038190/212257472-08e52665-c503-4bd9-aa20-f5a4dae769b5.gif" width="20"> **Step 4: Start Development Servers**
+
 ```bash
 # Terminal 1 - Backend
 cd backend
@@ -159,17 +230,46 @@ cd frontend
 npm start
 ```
 
-5. **Open Browser**
-```
-Frontend: http://localhost:3000
-Backend:  http://localhost:3001
-```
+<img src="https://user-images.githubusercontent.com/74038190/212257472-08e52665-c503-4bd9-aa20-f5a4dae769b5.gif" width="20"> **Step 5: Open Browser**
+
+<div align="center">
+
+🌐 **Frontend:** `http://localhost:3000`  
+⚙️ **Backend API:** `http://localhost:3001`
+
+<img src="https://user-images.githubusercontent.com/74038190/212257465-7ce8d493-cac5-494e-982a-5a9deb852c4b.gif" width="100">
+
+**✨ Your application is ready! ✨**
+
+</div>
 
 ---
 
 ## 🏗️ Architecture
 
-### System Design
+<div align="center">
+<img src="https://user-images.githubusercontent.com/74038190/229223156-0cbdaba9-3128-4d8e-8719-b6b4cf741b67.gif" width="400">
+</div>
+
+### 🎨 System Design
+
+<div align="center">
+
+```mermaid
+graph LR
+    A[🌐 Browser<br/>React UI] -->|HTTP Requests| B[⚙️ Express Server<br/>Node.js Backend]
+    B -->|API Calls| C[🌍 AQICN API<br/>External Service]
+    B -->|Check/Store| D[💾 LRU Cache<br/>In-Memory]
+    
+    style A fill:#61DAFB,stroke:#333,stroke-width:2px,color:#000
+    style B fill:#68A063,stroke:#333,stroke-width:2px,color:#fff
+    style C fill:#FF6B6B,stroke:#333,stroke-width:2px,color:#fff
+    style D fill:#FFD93D,stroke:#333,stroke-width:2px,color:#000
+```
+
+</div>
+
+### 📊 Data Flow
 
 ```
 ┌─────────────┐      HTTP      ┌─────────────┐      HTTP      ┌─────────────┐
@@ -382,46 +482,120 @@ GET /health
 
 ## ⚡ Performance
 
-### Caching Strategy
+<div align="center">
+<img src="https://user-images.githubusercontent.com/74038190/212257467-871d32b7-e401-42e8-a166-fcfd7baa4c6b.gif" width="100">
 
-**LRU (Least Recently Used) Cache Implementation:**
+### 🚀 Lightning Fast Response Times
 
+</div>
+
+### 📈 Caching Strategy
+
+<table>
+<tr>
+<td width="50%">
+
+**🎯 Cache Hit (Fast)**
 ```javascript
-// Cache hit example
-Request: GET /aqi/search?city=London
-Response Time: ~5ms (from cache)
-
-// Cache miss example
-Request: GET /aqi/search?city=Tokyo
-Response Time: ~500ms (from API)
+Request:  GET /aqi/search?city=London
+Response: ~5ms ⚡
+Source:   In-Memory Cache
 ```
 
-**Performance Metrics:**
-- **Cache Hit Rate**: ~85% in typical usage
-- **Response Time (Cached)**: 5-15ms
-- **Response Time (Uncached)**: 400-800ms
-- **Speed Improvement**: **98% faster** for cached requests
+<div align="center">
+<img src="https://img.shields.io/badge/Speed-98%25_Faster-success?style=for-the-badge" />
+</div>
 
-**Cache Configuration:**
+</td>
+<td width="50%">
+
+**🌐 Cache Miss (API Call)**
+```javascript
+Request:  GET /aqi/search?city=Tokyo
+Response: ~500ms 🌍
+Source:   External API
+```
+
+<div align="center">
+<img src="https://img.shields.io/badge/Cached-Next_Time-blue?style=for-the-badge" />
+</div>
+
+</td>
+</tr>
+</table>
+
+### 📊 Performance Metrics
+
+<div align="center">
+
+| Metric | Value | Description |
+|--------|-------|-------------|
+| 🎯 **Cache Hit Rate** | `~85%` | Typical usage pattern |
+| ⚡ **Response (Cached)** | `5-15ms` | Lightning fast! |
+| 🌐 **Response (Uncached)** | `400-800ms` | First-time fetch |
+| 🚀 **Speed Improvement** | `98%` | For cached requests |
+
+</div>
+
+### ⚙️ Cache Configuration
+
 ```javascript
 {
-  maxSize: 100,        // Maximum entries
-  ttl: 30 * 60 * 1000  // 30 minutes
+  maxSize: 100,        // Maximum entries 📦
+  ttl: 30 * 60 * 1000  // 30 minutes ⏱️
 }
 ```
 
-### Optimization Techniques
+### 🎯 Optimization Techniques
 
-1. **O(1) Cache Operations**: Using JavaScript Map for constant-time lookups
-2. **Automatic Cleanup**: Background process removes expired entries every 5 minutes
-3. **Compression**: gzip compression for API responses
-4. **Connection Pooling**: Axios instance with persistent connections
+<table>
+<tr>
+<td width="25%" align="center">
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Gear.png" width="50"><br>
+<strong>O(1) Operations</strong><br>
+<em>Constant-time lookups</em>
+</td>
+<td width="25%" align="center">
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Broom.png" width="50"><br>
+<strong>Auto Cleanup</strong><br>
+<em>Every 5 minutes</em>
+</td>
+<td width="25%" align="center">
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Package.png" width="50"><br>
+<strong>Compression</strong><br>
+<em>gzip enabled</em>
+</td>
+<td width="25%" align="center">
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Link.png" width="50"><br>
+<strong>Connection Pool</strong><br>
+<em>Persistent connections</em>
+</td>
+</tr>
+</table>
 
 ---
 
 ## 🛠️ Technologies Used
 
+<div align="center">
+<img src="https://user-images.githubusercontent.com/74038190/212257460-738ff738-247f-4445-a718-cdd0ca76e2db.gif" width="100">
+</div>
+
+### 💻 Tech Stack
+
+<div align="center">
+
+<table>
+<tr>
+<td align="center" width="50%">
+<img src="https://user-images.githubusercontent.com/74038190/212257454-16e3712e-945a-4ca2-b238-408ad0bf87e6.gif" width="80">
+
 ### Backend
+
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+<img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" />
+<img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white" />
+
 - **Node.js** (v16+) - JavaScript runtime
 - **Express.js** (v4.18) - Web framework
 - **Axios** (v1.6) - HTTP client
@@ -430,11 +604,33 @@ Response Time: ~500ms (from API)
 - **dotenv** - Environment configuration
 - **compression** - Response compression
 
+</td>
+<td align="center" width="50%">
+<img src="https://user-images.githubusercontent.com/74038190/212257465-7ce8d493-cac5-494e-982a-5a9deb852c4b.gif" width="80">
+
 ### Frontend
+
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+
 - **React** (v18.2) - UI library
 - **Create React App** - Build tooling
 - **Axios** (v1.6) - HTTP client
 - **CSS3** - Styling
+
+</td>
+</tr>
+</table>
+
+### 🌐 External APIs
+
+<div align="center">
+<img src="https://img.shields.io/badge/AQICN_API-Real--time_Data-blue?style=for-the-badge" />
+<img src="https://img.shields.io/badge/10K+_Stations-Worldwide-green?style=for-the-badge" />
+</div>
+
+</div>
 
 ### External Services
 - **AQICN API** - Air quality data provider
@@ -484,14 +680,18 @@ Finfactor/
 
 ## 🧪 Testing
 
-### Manual Testing
+<div align="center">
+<img src="https://user-images.githubusercontent.com/74038190/212257468-1e9a91f1-b626-4baa-b15d-5c385dfa7ed2.gif" width="100">
+</div>
+
+### 🔬 Manual Testing
 
 **Test Backend:**
 ```bash
-# Health check
+# Health check ❤️
 curl http://localhost:3001/health
 
-# Search by city
+# Search by city 🏙️
 curl "http://localhost:3001/api/aqi/search?city=London"
 
 # Cache stats
@@ -521,21 +721,41 @@ curl http://localhost:3001/api/aqi/cache-stats
 
 ## 🚢 Deployment
 
-### Free Hosting Options
+<div align="center">
+<img src="https://user-images.githubusercontent.com/74038190/212257463-4d082cb4-7483-4eaf-bc25-6dde2628aabd.gif" width="100">
 
-1. **Backend: Render.com**
-   - Free tier: 750 hours/month
-   - Auto-deploy from GitHub
-   - Built-in SSL
+### ☁️ Free Hosting Options
 
-2. **Frontend: Vercel**
-   - Unlimited free deployments
-   - Global CDN
-   - Automatic HTTPS
+</div>
 
-3. **Full-Stack: Railway.app**
-   - $5 credit/month free
-   - Deploy both services together
+<table>
+<tr>
+<td width="33%" align="center">
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Desktop%20Computer.png" width="60"><br>
+<strong>🔧 Backend</strong><br>
+<a href="https://render.com">Render.com</a><br>
+<em>750 hours/month free</em><br>
+✅ Auto-deploy from GitHub<br>
+✅ Built-in SSL
+</td>
+<td width="33%" align="center">
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Mobile%20Phone.png" width="60"><br>
+<strong>🎨 Frontend</strong><br>
+<a href="https://vercel.com">Vercel</a><br>
+<em>Unlimited deployments</em><br>
+✅ Global CDN<br>
+✅ Automatic HTTPS
+</td>
+<td width="33%" align="center">
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Package.png" width="60"><br>
+<strong>📦 Full-Stack</strong><br>
+<a href="https://railway.app">Railway.app</a><br>
+<em>$5 credit/month free</em><br>
+✅ Deploy both together<br>
+✅ Easy configuration
+</td>
+</tr>
+</table>
 
 ### Deployment Steps (Render + Vercel)
 
@@ -562,12 +782,47 @@ vercel
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these steps:
+<div align="center">
+<img src="https://user-images.githubusercontent.com/74038190/212284087-bbe7e430-757e-4901-90bf-4cd2ce3e1852.gif" width="100">
 
+**Contributions are always welcome! 🎉**
+
+</div>
+
+### 📝 How to Contribute
+
+<table>
+<tr>
+<td width="25%" align="center">
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Fork%20and%20Knife.png" width="50"><br>
+<strong>1️⃣ Fork</strong><br>
+Fork the repository
+</td>
+<td width="25%" align="center">
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Hammer%20and%20Wrench.png" width="50"><br>
+<strong>2️⃣ Create</strong><br>
+Create feature branch
+</td>
+<td width="25%" align="center">
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Memo.png" width="50"><br>
+<strong>3️⃣ Commit</strong><br>
+Commit your changes
+</td>
+<td width="25%" align="center">
+<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Rocket.png" width="50"><br>
+<strong>4️⃣ Push</strong><br>
+Push & create PR
+</td>
+</tr>
+</table>
+
+```bash
+# Fork the repository
 1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
+2. Create feature branch: git checkout -b feature/AmazingFeature
+3. Commit changes: git commit -m 'Add AmazingFeature'
+4. Push to branch: git push origin feature/AmazingFeature
+5. Open a Pull Request
 5. Open Pull Request
 
 ### Code Style
@@ -578,15 +833,27 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
-## 📄 License
+<div align="center">
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 🙏 Acknowledgments
+
+<img src="https://user-images.githubusercontent.com/74038190/216644497-1951db19-8f3d-4e44-ac08-8e9d7e0d94a7.gif" width="50">
+
+- **AQICN API** - Real-time air quality data
+- **World Air Quality Index Project** - Global monitoring network
+- **Open Source Community** - For amazing tools and libraries
 
 ---
 
-## 👥 Authors
+<img src="https://user-images.githubusercontent.com/74038190/212284158-e840e285-664b-44d7-b79b-e264b5e54825.gif" width="400">
 
-**Your Name**
+### Made with ❤️ by FinFactor Team
+
+<img src="https://raw.githubusercontent.com/Platane/snk/output/github-contribution-grid-snake-dark.svg" width="100%">
+
+**⭐ Star this repo if you find it useful!**
+
+</div>
 - GitHub: [@yourusername](https://github.com/yourusername)
 - Email: your.email@example.com
 
