@@ -40,7 +40,6 @@
 - [Performance](#-performance)
 - [Technologies](#-technologies-used)
 - [Project Structure](#-project-structure)
-- [Contributing](#-contributing)
 
 ---
 
@@ -678,47 +677,6 @@ Finfactor/
 
 ---
 
-## 🧪 Testing
-
-<div align="center">
-<img src="https://user-images.githubusercontent.com/74038190/212257468-1e9a91f1-b626-4baa-b15d-5c385dfa7ed2.gif" width="100">
-</div>
-
-### 🔬 Manual Testing
-
-**Test Backend:**
-```bash
-# Health check ❤️
-curl http://localhost:3001/health
-
-# Search by city 🏙️
-curl "http://localhost:3001/api/aqi/search?city=London"
-
-# Cache stats
-curl http://localhost:3001/api/aqi/cache-stats
-```
-
-**Test Frontend:**
-1. Open http://localhost:3000
-2. Search for "London"
-3. Verify AQI card displays correctly
-4. Test example city buttons
-5. Try invalid city name
-6. Check responsive design on mobile
-
-### Test Cases Covered
-
-✅ Valid city search  
-✅ Invalid city name  
-✅ Empty input validation  
-✅ Cache hit/miss scenarios  
-✅ API timeout handling  
-✅ Network error recovery  
-✅ Coordinate validation  
-✅ Rate limit handling  
-
----
-
 ## 🚢 Deployment
 
 <div align="center">
@@ -777,59 +735,6 @@ npm install -g vercel
 cd frontend
 vercel
 ```
-
----
-
-## 🤝 Contributing
-
-<div align="center">
-<img src="https://user-images.githubusercontent.com/74038190/212284087-bbe7e430-757e-4901-90bf-4cd2ce3e1852.gif" width="100">
-
-**Contributions are always welcome! 🎉**
-
-</div>
-
-### 📝 How to Contribute
-
-<table>
-<tr>
-<td width="25%" align="center">
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Fork%20and%20Knife.png" width="50"><br>
-<strong>1️⃣ Fork</strong><br>
-Fork the repository
-</td>
-<td width="25%" align="center">
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Hammer%20and%20Wrench.png" width="50"><br>
-<strong>2️⃣ Create</strong><br>
-Create feature branch
-</td>
-<td width="25%" align="center">
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Memo.png" width="50"><br>
-<strong>3️⃣ Commit</strong><br>
-Commit your changes
-</td>
-<td width="25%" align="center">
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Rocket.png" width="50"><br>
-<strong>4️⃣ Push</strong><br>
-Push & create PR
-</td>
-</tr>
-</table>
-
-```bash
-# Fork the repository
-1. Fork the repository
-2. Create feature branch: git checkout -b feature/AmazingFeature
-3. Commit changes: git commit -m 'Add AmazingFeature'
-4. Push to branch: git push origin feature/AmazingFeature
-5. Open a Pull Request
-5. Open Pull Request
-
-### Code Style
-- Use meaningful variable names
-- Add comments for complex logic
-- Follow existing file structure
-- Write clean, maintainable code
 
 ---
 
