@@ -1,6 +1,3 @@
-// Custom memory store with time-based expiration
-// Built for high-speed data retrieval in production systems
-
 class MemoryDataStore {
   constructor(capacity = 100, expirationMs = 30 * 60 * 1000) {
     this.capacity = capacity;

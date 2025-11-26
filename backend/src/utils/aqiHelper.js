@@ -1,13 +1,3 @@
-/**
- * AQI Helper utilities
- * Provides helper functions for AQI calculations and categorization
- */
-
-/**
- * Get AQI level category
- * @param {number} aqi - AQI value
- * @returns {object} Level info
- */
 function getAQILevel(aqi) {
   if (aqi <= 50) {
     return {
