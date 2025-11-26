@@ -289,7 +289,7 @@ class AirQualityDataProvider {
     }
 
     const alerts = forecast
-      .filter(f => f.aqi > 100)
+      .filter(f => f.aqi > 150)
       .map(f => ({
         time: f.hourLabel,
         aqi: f.aqi,
