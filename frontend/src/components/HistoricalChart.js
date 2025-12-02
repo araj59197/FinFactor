@@ -20,9 +20,17 @@ ChartJS.register(
     Legend
 );
 
-function HistoricalChart({ historicalData }) {
-    if (!historicalData || !historicalData.history) {
-        return <div className="no-data">No historical data available</div>;
+function HistoricalChart({ historicalData, loading }) {
+    if (loading) {
+        return <div className="no-data">Loading historical data...</div>;
+    }
+
+    if (!historicalData) {
+        return <div className="no-data">No historical data available. Please try searching for a city.</div>;
+    }
+
+    if (!historicalData.history || historicalData.history.length === 0) {
+        return <div className="no-data">Historical data is not available for this location.</div>;
     }
 
     const getColorForAQI = (aqi) => {

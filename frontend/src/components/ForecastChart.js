@@ -24,9 +24,17 @@ ChartJS.register(
     Filler
 );
 
-function ForecastChart({ forecastData }) {
-    if (!forecastData || !forecastData.forecast) {
-        return <div className="no-data">No forecast data available</div>;
+function ForecastChart({ forecastData, loading }) {
+    if (loading) {
+        return <div className="no-data">Loading forecast data...</div>;
+    }
+
+    if (!forecastData) {
+        return <div className="no-data">No forecast data available. Please try searching for a city.</div>;
+    }
+
+    if (!forecastData.forecast || forecastData.forecast.length === 0) {
+        return <div className="no-data">Forecast data is not available for this location.</div>;
     }
 
     const getColorForAQI = (aqi) => {

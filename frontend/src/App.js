@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchBar from './components/SearchBar';
 import AQICard from './components/AQICard';
 import Loading from './components/Loading';
 import ForecastChart from './components/ForecastChart';
 import HistoricalChart from './components/HistoricalChart';
-import { searchCityAQI, getForecast, getHistoricalData } from './services/api';
+import { searchCityAQI, getForecast, getHistoricalData, wakeUpBackend } from './services/api';
 import './App.css';
 
 function App() {
@@ -14,21 +14,35 @@ function App() {
   const [activeTab, setActiveTab] = useState('current');
   const [forecastData, setForecastData] = useState(null);
   const [historicalData, setHistoricalData] = useState(null);
-  const [currentCity, setCurrentCity] = useState(null);
+  const [loadingForecast, setLoadingForecast] = useState(false);
+  const [loadingHistory, setLoadingHistory] = useState(false);
+  const [backendStatus, setBackendStatus] = useState('checking'); // 'checking', 'ready', 'waking'
 
-  const performSearch = async (location) => {
+  // Wake up backend on app load (for Render free tier)
+  useEffect(() => {
+    const initBackend = async () => {
+      setBackendStatus('waking');
+      const isAwake = await wakeUpBackend();
+      setBackendStatus(isAwake ? 'ready' : 'checking');
+    };
+    
+    initBackend();
+  }, []);
+
+  const performSearch = async (location, retryCount = 0) => {
     setIsProcessing(true);
     setErrorMsg(null);
     setAirQualityInfo(null);
     setForecastData(null);
     setHistoricalData(null);
-    setCurrentCity(location);
 
     try {
       const result = await searchCityAQI(location);
       if (result.success) {
         setAirQualityInfo(result.data);
+        setBackendStatus('ready'); // Mark backend as ready after successful request
         
+        setLoadingForecast(true);
         try {
           const forecast = await getForecast(location);
           if (forecast.success) {
@@ -36,8 +50,11 @@ function App() {
           }
         } catch (err) {
           console.error('Forecast error:', err);
+        } finally {
+          setLoadingForecast(false);
         }
 
+        setLoadingHistory(true);
         try {
           const historical = await getHistoricalData(location);
           if (historical.success) {
@@ -45,11 +62,20 @@ function App() {
           }
         } catch (err) {
           console.error('Historical data error:', err);
+        } finally {
+          setLoadingHistory(false);
         }
       } else {
         setErrorMsg(result.message || 'Failed to fetch AQI data');
       }
     } catch (error) {
+      // Retry once if it's a timeout and this is the first attempt
+      if (retryCount === 0 && error.message.includes('server')) {
+        console.log('Retrying request after server wake-up...');
+        setBackendStatus('waking');
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds
+        return performSearch(location, 1); // Retry
+      }
       setErrorMsg(error.message || 'An error occurred while fetching data');
     } finally {
       setIsProcessing(false);
@@ -73,6 +99,17 @@ function App() {
 
         <div className="search-section">
           <SearchBar onSearch={performSearch} loading={isProcessing} />
+          {backendStatus === 'waking' && (
+            <div style={{ 
+              textAlign: 'center', 
+              padding: '10px', 
+              color: '#666',
+              fontSize: '14px',
+              animation: 'fadeIn 0.3s ease-in'
+            }}>
+              ⏳ Waking up server... This may take 30-60 seconds on first load
+            </div>
+          )}
         </div>
 
         <div className="results-section">
@@ -114,8 +151,8 @@ function App() {
 
               <div className="tab-content">
                 {activeTab === 'current' && <AQICard data={airQualityInfo} />}
-                {activeTab === 'forecast' && <ForecastChart forecastData={forecastData} />}
-                {activeTab === 'historical' && <HistoricalChart historicalData={historicalData} />}
+                {activeTab === 'forecast' && <ForecastChart forecastData={forecastData} loading={loadingForecast} />}
+                {activeTab === 'historical' && <HistoricalChart historicalData={historicalData} loading={loadingHistory} />}
               </div>
             </>
           )}

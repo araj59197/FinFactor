@@ -4,7 +4,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:300
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 15000,
+  timeout: 60000, // Increased to 60s for Render cold starts
   headers: {
     'Content-Type': 'application/json',
   },
@@ -73,10 +73,25 @@ export const getHistoricalData = async (cityName) => {
 };
 
 export const checkHealth = async () => {
-  const response = await apiClient.get('/health', {
-    baseURL: process.env.REACT_APP_API_BASE_URL?.replace('/api', '') || 'http://localhost:3001',
+  const baseUrl = process.env.REACT_APP_API_BASE_URL?.replace('/api', '') || 'http://localhost:3001';
+  const response = await axios.get(`${baseUrl}/health`, {
+    timeout: 60000, // 60 seconds for cold start
   });
   return response.data;
+};
+
+// Wake up the backend server (for Render free tier cold starts)
+export const wakeUpBackend = async () => {
+  try {
+    const baseUrl = process.env.REACT_APP_API_BASE_URL?.replace('/api', '') || 'http://localhost:3001';
+    await axios.get(`${baseUrl}/health`, {
+      timeout: 60000,
+    });
+    return true;
+  } catch (error) {
+    console.error('Backend wake-up failed:', error.message);
+    return false;
+  }
 };
 
 export default apiClient;
