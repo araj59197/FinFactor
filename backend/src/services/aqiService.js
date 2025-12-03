@@ -2,6 +2,7 @@ const axios = require('axios');
 const config = require('../config');
 const { getCacheInstance } = require('./cacheService');
 const { logger } = require('../utils/logger');
+const { ApiError } = require('../utils/ApiError');
 
 const dataStore = getCacheInstance(config.cache.maxSize, config.cache.ttlMinutes);
 
@@ -196,22 +197,31 @@ class AirQualityDataProvider {
       };
 
       if (errorMessages[statusCode]) {
-        return new Error(errorMessages[statusCode]);
+        return new ApiError(statusCode, errorMessages[statusCode]);
       }
 
       // Handle "Unknown station" message specifically
       if (errorMsg && errorMsg.includes('Unknown station')) {
-        return new Error('No air quality monitoring station found for this location. Try a nearby major city.');
+        return new ApiError(
+          404,
+          'No air quality monitoring station found for this location. Try a nearby major city.',
+          'Location Not Found'
+        );
       }
 
-      return new Error(`Service error: ${errorMsg}`);
+      return new ApiError(statusCode || 502, `Service error: ${errorMsg}`);
     }
-    
+
     if (err.request) {
-      return new Error('Cannot connect to air quality service. Check your internet connection.');
+      return new ApiError(503, 'Cannot connect to air quality service. Check your internet connection.', 'Service Unavailable');
     }
-    
-    return err;
+
+    // Fallback to generic internal error
+    if (err instanceof ApiError) {
+      return err;
+    }
+
+    return new ApiError(500, err.message || 'Internal server error');
   }
 
   async getForecast(cityName) {

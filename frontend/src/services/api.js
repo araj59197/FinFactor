@@ -2,6 +2,11 @@ import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001/api';
 
+const getBackendBaseUrl = () => {
+  const base = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001/api';
+  return base.replace(/\/api\/?$/, '');
+};
+
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
   timeout: 60000, // Increased to 60s for Render cold starts
@@ -13,7 +18,9 @@ const apiClient = axios.create({
 // Request interceptor for logging
 apiClient.interceptors.request.use(
   (config) => {
-    console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`);
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`);
+    }
     return config;
   },
   (error) => {
@@ -29,15 +36,21 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response) {
       // Server responded with error
-      console.error('API Error:', error.response.data);
+      if (process.env.NODE_ENV === 'development') {
+        console.error('API Error:', error.response.data);
+      }
       throw new Error(error.response.data.message || 'An error occurred');
     } else if (error.request) {
       // Request made but no response
-      console.error('Network Error:', error.request);
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Network Error:', error.request);
+      }
       throw new Error('Unable to reach the server. Please check your connection.');
     } else {
       // Something else happened
-      console.error('Error:', error.message);
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error:', error.message);
+      }
       throw new Error(error.message);
     }
   }
@@ -73,7 +86,7 @@ export const getHistoricalData = async (cityName) => {
 };
 
 export const checkHealth = async () => {
-  const baseUrl = process.env.REACT_APP_API_BASE_URL?.replace('/api', '') || 'http://localhost:3001';
+  const baseUrl = getBackendBaseUrl();
   const response = await axios.get(`${baseUrl}/health`, {
     timeout: 60000, // 60 seconds for cold start
   });
@@ -83,7 +96,7 @@ export const checkHealth = async () => {
 // Wake up the backend server (for Render free tier cold starts)
 export const wakeUpBackend = async () => {
   try {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL?.replace('/api', '') || 'http://localhost:3001';
+    const baseUrl = getBackendBaseUrl();
     await axios.get(`${baseUrl}/health`, {
       timeout: 60000,
     });

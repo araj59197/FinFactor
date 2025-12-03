@@ -1,6 +1,7 @@
 const { getAQIService } = require('../services/aqiService');
 const { logger } = require('../utils/logger');
 const { getAQILevel, getHealthImplication } = require('../utils/aqiHelper');
+const { ApiError } = require('../utils/ApiError');
 
 const aqiService = getAQIService();
 
@@ -9,11 +10,7 @@ async function searchCity(req, res, next) {
     const { city } = req.query;
 
     if (!city || city.trim().length === 0) {
-      return res.status(400).json({
-        success: false,
-        error: 'City name is required',
-        message: 'Please provide a valid city name',
-      });
+      throw new ApiError(400, 'City name is required', 'Validation Error');
     }
 
     logger.info(`Searching AQI for city: ${city}`);
@@ -33,32 +30,8 @@ async function searchCity(req, res, next) {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    // Handle API errors directly in controller
     logger.info(`Search failed for city: ${req.query.city} - ${error.message}`);
-
-    let statusCode = 500;
-    let errorType = 'Internal Server Error';
-
-    if (error.message.includes('not found') || error.message.includes('No monitoring station')) {
-      statusCode = 404;
-      errorType = 'Location Not Found';
-    } else if (error.message.includes('rate limit')) {
-      statusCode = 429;
-      errorType = 'Rate Limit Exceeded';
-    } else if (error.message.includes('Invalid API token')) {
-      statusCode = 401;
-      errorType = 'Authentication Error';
-    } else if (error.message.includes('Unable to reach') || error.message.includes('timeout')) {
-      statusCode = 503;
-      errorType = 'Service Unavailable';
-    }
-
-    res.status(statusCode).json({
-      success: false,
-      error: errorType,
-      message: error.message,
-      timestamp: new Date().toISOString(),
-    });
+    next(error);
   }
 }
 
@@ -70,30 +43,21 @@ async function searchByCoordinates(req, res, next) {
     const { lat, lng } = req.query;
 
     if (!lat || !lng) {
-      return res.status(400).json({
-        success: false,
-        error: 'Latitude and longitude are required',
-        message: 'Please provide valid coordinates',
-      });
+      throw new ApiError(400, 'Latitude and longitude are required', 'Validation Error');
     }
-
     const latitude = parseFloat(lat);
     const longitude = parseFloat(lng);
 
     if (isNaN(latitude) || isNaN(longitude)) {
-      return res.status(400).json({
-        success: false,
-        error: 'Invalid coordinates',
-        message: 'Latitude and longitude must be valid numbers',
-      });
+      throw new ApiError(400, 'Latitude and longitude must be valid numbers', 'Validation Error');
     }
 
     if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
-      return res.status(400).json({
-        success: false,
-        error: 'Coordinates out of range',
-        message: 'Latitude must be between -90 and 90, longitude between -180 and 180',
-      });
+      throw new ApiError(
+        400,
+        'Latitude must be between -90 and 90, longitude between -180 and 180',
+        'Validation Error'
+      );
     }
 
     logger.info(`Searching AQI for coordinates: ${latitude}, ${longitude}`);
@@ -113,32 +77,10 @@ async function searchByCoordinates(req, res, next) {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    // Handle API errors directly in controller
-    logger.info(`Search failed for coordinates: ${req.query.lat},${req.query.lng} - ${error.message}`);
-
-    let statusCode = 500;
-    let errorType = 'Internal Server Error';
-
-    if (error.message.includes('not found') || error.message.includes('No monitoring station')) {
-      statusCode = 404;
-      errorType = 'Location Not Found';
-    } else if (error.message.includes('rate limit')) {
-      statusCode = 429;
-      errorType = 'Rate Limit Exceeded';
-    } else if (error.message.includes('Invalid API token')) {
-      statusCode = 401;
-      errorType = 'Authentication Error';
-    } else if (error.message.includes('Unable to reach') || error.message.includes('timeout')) {
-      statusCode = 503;
-      errorType = 'Service Unavailable';
-    }
-
-    res.status(statusCode).json({
-      success: false,
-      error: errorType,
-      message: error.message,
-      timestamp: new Date().toISOString(),
-    });
+    logger.info(
+      `Search failed for coordinates: ${req.query.lat},${req.query.lng} - ${error.message}`
+    );
+    next(error);
   }
 }
 
@@ -150,10 +92,7 @@ async function getForecast(req, res, next) {
     const { city } = req.params;
 
     if (!city || city.trim().length === 0) {
-      return res.status(400).json({
-        success: false,
-        error: 'City name is required',
-      });
+      throw new ApiError(400, 'City name is required', 'Validation Error');
     }
 
     logger.info(`Fetching forecast for: ${city}`);
@@ -166,10 +105,7 @@ async function getForecast(req, res, next) {
     });
   } catch (error) {
     logger.error(`Forecast error for ${req.params.city}:`, error.message);
-    res.status(500).json({
-      success: false,
-      error: error.message || 'Failed to fetch forecast data',
-    });
+    next(error);
   }
 }
 
@@ -178,10 +114,7 @@ async function getHistoricalData(req, res, next) {
     const { city } = req.params;
 
     if (!city || city.trim().length === 0) {
-      return res.status(400).json({
-        success: false,
-        error: 'City name is required',
-      });
+      throw new ApiError(400, 'City name is required', 'Validation Error');
     }
 
     logger.info(`Fetching historical data for: ${city}`);
@@ -194,10 +127,7 @@ async function getHistoricalData(req, res, next) {
     });
   } catch (error) {
     logger.error(`Historical data error for ${req.params.city}:`, error.message);
-    res.status(500).json({
-      success: false,
-      error: error.message || 'Failed to fetch historical data',
-    });
+    next(error);
   }
 }
 

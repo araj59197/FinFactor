@@ -41,28 +41,27 @@ function App() {
       if (result.success) {
         setAirQualityInfo(result.data);
         setBackendStatus('ready'); // Mark backend as ready after successful request
-        
+
         setLoadingForecast(true);
+        setLoadingHistory(true);
+
         try {
-          const forecast = await getForecast(location);
-          if (forecast.success) {
+          const [forecast, historical] = await Promise.all([
+            getForecast(location),
+            getHistoricalData(location),
+          ]);
+
+          if (forecast?.success) {
             setForecastData(forecast.data);
           }
-        } catch (err) {
-          console.error('Forecast error:', err);
-        } finally {
-          setLoadingForecast(false);
-        }
 
-        setLoadingHistory(true);
-        try {
-          const historical = await getHistoricalData(location);
-          if (historical.success) {
+          if (historical?.success) {
             setHistoricalData(historical.data);
           }
         } catch (err) {
-          console.error('Historical data error:', err);
+          console.error('Forecast or historical data error:', err);
         } finally {
+          setLoadingForecast(false);
           setLoadingHistory(false);
         }
       } else {

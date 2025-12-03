@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
+const rateLimit = require('express-rate-limit');
 const config = require('./config');
 const aqiRoutes = require('./routes/aqiRoutes');
 const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
@@ -15,10 +16,23 @@ app.use(helmet());
 
 // CORS configuration
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
+  origin: config.corsOrigin,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+// Basic rate limiting for API routes
+const apiLimiter = rateLimit({
+  windowMs: config.rateLimit.windowMs,
+  max: config.rateLimit.max,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    error: 'Too Many Requests',
+    message: 'You have exceeded the allowed number of requests. Please try again later.',
+  },
+});
 
 // Compression middleware
 app.use(compression());
@@ -48,8 +62,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API routes
-app.use('/api/aqi', aqiRoutes);
+// API routes (protected by rate limiting)
+app.use('/api/aqi', apiLimiter, aqiRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
